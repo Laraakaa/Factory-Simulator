@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://8y7tgxeq5mux"]
+
+[node name="MainScene" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Menu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Menu"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Load Factory"

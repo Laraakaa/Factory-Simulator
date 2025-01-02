@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgcjogild53hd"]
+
+[ext_resource type="ArrayMesh" uid="uid://d3k66dj0cxkr" path="res://assets/models/tiles/floor_factory.res" id="1_v7eu7"]
+[ext_resource type="ArrayMesh" uid="uid://v701ryadgjyw" path="res://assets/models/tiles/wall_factory.res" id="2_y5yo1"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d2o2l"]
+points = PackedVector3Array(-1, -0.05, -1, -1, 0.05, -1, 1, -0.05, -1, -1, -0.05, 1, -1, 0.05, 1, 1, 0.05, -1, 1, -0.05, 1, 1, 0.05, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qawcy"]
+points = PackedVector3Array(1, 2, 0.05, 1, 2, -0.05, -1, 2, 0.05, 1, 0, 0.05, 1, 0, -0.05, -1, 2, -0.05, -1, 0, 0.05, -1, 0, -0.05)
+
+[node name="mesh_library" type="Node3D"]
+
+[node name="floor_factory" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = ExtResource("1_v7eu7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="floor_factory"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor_factory/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_d2o2l")
+
+[node name="wall_factory" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.95)
+mesh = ExtResource("2_y5yo1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall_factory"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall_factory/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_qawcy")
