@@ -48,7 +48,7 @@ boundaries = AABB(-19.5, 6, -9.5, 19.5, 15, 9.5)
 [node name="LevelContainer" type="Node3D" parent="Main3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Main3D"]
-transform = Transform3D(1, 0, 0, 0, 0.379715, 0.925104, 0, -0.925104, 0.379715, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.379715, 0.925104, 0, -0.925104, 0.379715, 0, 12.7796, 0)
 
 [node name="factory_1" parent="Main3D" instance=ExtResource("2_mhp7c")]
 

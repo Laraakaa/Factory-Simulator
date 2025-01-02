@@ -20,7 +20,6 @@ func load_level():
 		level_container.add_child(current_level)
 
 func _on_play_pressed() -> void:
-	print("Play button pressed")
 	in_menu = false
 	menu.visible = false
 	load_level()

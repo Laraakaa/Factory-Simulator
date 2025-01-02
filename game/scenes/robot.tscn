@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://de654exmses8g"]
+
+[ext_resource type="ArrayMesh" uid="uid://cutkqy4e2os2a" path="res://assets/models/robot_body.res" id="1_bcrs7"]
+[ext_resource type="ArrayMesh" uid="uid://txmat18huae3" path="res://assets/models/robot_wheel_fl.res" id="2_cvhn6"]
+[ext_resource type="ArrayMesh" uid="uid://xphuj3j75m8n" path="res://assets/models/robot_wheel_fr.res" id="3_rayob"]
+[ext_resource type="ArrayMesh" uid="uid://dk8erioxux4dk" path="res://assets/models/robot_wheel_bl.res" id="4_1bfnw"]
+[ext_resource type="ArrayMesh" uid="uid://d2rfpnu3yjwc5" path="res://assets/models/robot_wheel_br.res" id="5_kp51p"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4f4un"]
+points = PackedVector3Array(-1, -1, -1, -0.568716, -1.69694, -1, -1, -1, 1, -1, 1, -1, -0.568716, -1.69694, 1, 0.56852, -1.69694, -1, -1, 1, 1, 1, 1, -1, 0.56852, -1.69694, 1, 1, -1, -1, 1, 1, 1, 1, -1, 1)
+
+[node name="Robot" type="Node3D"]
+
+[node name="VehicleBody3D" type="VehicleBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VehicleBody3D"]
+shape = SubResource("ConvexPolygonShape3D_4f4un")
+
+[node name="Body" type="MeshInstance3D" parent="VehicleBody3D/CollisionShape3D"]
+mesh = ExtResource("1_bcrs7")
+skeleton = NodePath("../..")
+
+[node name="Wheel_FL" type="VehicleWheel3D" parent="VehicleBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VehicleBody3D/Wheel_FL"]
+mesh = ExtResource("2_cvhn6")
+
+[node name="Wheel_FR" type="VehicleWheel3D" parent="VehicleBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VehicleBody3D/Wheel_FR"]
+mesh = ExtResource("3_rayob")
+
+[node name="Wheel_BL" type="VehicleWheel3D" parent="VehicleBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VehicleBody3D/Wheel_BL"]
+mesh = ExtResource("4_1bfnw")
+
+[node name="Wheel_BR" type="VehicleWheel3D" parent="VehicleBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VehicleBody3D/Wheel_BR"]
+mesh = ExtResource("5_kp51p")
