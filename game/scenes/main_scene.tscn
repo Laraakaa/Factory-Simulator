@@ -1,8 +1,13 @@
-[gd_scene format=3 uid="uid://8y7tgxeq5mux"]
+[gd_scene load_steps=4 format=3 uid="uid://8y7tgxeq5mux"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_yo6cb"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="2_k63b4"]
+[ext_resource type="PackedScene" uid="uid://c6qof5uhon078" path="res://scenes/layouts/factory_1.tscn" id="2_mhp7c"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_yo6cb")
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
@@ -15,8 +20,36 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="Menu"]
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Load Factory"
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play
+"
+
+[node name="Quit" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Main3D" type="Node3D" parent="."]
+
+[node name="Camera" type="Camera3D" parent="Main3D"]
+transform = Transform3D(1, 0, 0, 0, 0.422745, 0.906249, 0, -0.906249, 0.422745, 0, 15, 8)
+fov = 70.0
+script = ExtResource("2_k63b4")
+boundaries = AABB(-19.5, 6, -9.5, 19.5, 15, 9.5)
+
+[node name="LevelContainer" type="Node3D" parent="Main3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Main3D"]
+transform = Transform3D(1, 0, 0, 0, 0.379715, 0.925104, 0, -0.925104, 0.379715, 0, 0, 0)
+
+[node name="factory_1" parent="Main3D" instance=ExtResource("2_mhp7c")]
+
+[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
