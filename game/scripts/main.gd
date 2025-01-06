@@ -18,6 +18,10 @@ func load_level():
 	if (level_scene):
 		current_level = level_scene.instantiate()
 		level_container.add_child(current_level)
+		
+func toggle_menu():
+	in_menu = !in_menu
+	menu.visible = in_menu
 
 func _on_play_pressed() -> void:
 	in_menu = false
@@ -26,3 +30,8 @@ func _on_play_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+	
+func _unhandled_input(event):
+	# Toggle menu when "Esc" is pressed
+	if event.is_action_pressed("toggle_menu"):
+		toggle_menu()
