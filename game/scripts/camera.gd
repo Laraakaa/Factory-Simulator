@@ -1,4 +1,4 @@
-extends Node3D
+extends Camera3D
 
 @export var zoom_speed: float = 2.0
 @export var rotation_speed: float = 2.0
@@ -8,36 +8,29 @@ extends Node3D
 var zoom_level: float = 8
 var current_zoom: float = 8
 var pan_delta: Vector3 = Vector3.ZERO
-
-func _ready():
-	update_camera_zoom()
-
-func _process(delta):
-	handle_pan(delta)
-	smooth_zoom(delta)
-
-# Handle zooming in and out
-func _unhandled_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:  # Mouse wheel up
-			zoom_level -= zoom_speed
-			zoom_level = clamp(zoom_level, boundaries.position.y, boundaries.size.y)
-			update_camera_zoom()
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:  # Mouse wheel down
-			zoom_level += zoom_speed
-			zoom_level = clamp(zoom_level, boundaries.position.y, boundaries.size.y)
-			update_camera_zoom()
+var is_locked: bool = true
+var lock_zoom: float = 20.0
+var lock_position: Vector3 = Vector3(0, 15, 8)
 
 func smooth_zoom(delta):
 	# Gradually move current_zoom towards zoom_level
 	current_zoom = lerp(current_zoom, zoom_level, 5 * delta)
 	update_camera_zoom()
+	
+func smooth_lock(delta):
+	# Gradually move towards the lock position and zoom
+	transform.origin = transform.origin.lerp(lock_position, 5 * delta)
+	# current_zoom = lerp(current_zoom, lock_zoom, 5 * delta)
+	# update_camera_zoom()
 
 func update_camera_zoom():
 	# Modify the camera's zoom by adjusting its vertical position (transform.origin.y)
 	var new_position = transform.origin
 	new_position.y = current_zoom
 	transform.origin = new_position
+	
+func set_locked(is_locked: bool):
+	self.is_locked = is_locked
 
 # Handle panning with WASD keys
 func handle_pan(delta):
@@ -74,3 +67,25 @@ func handle_pan(delta):
 	new_position.x = pan_delta.x
 	new_position.z = pan_delta.z
 	transform.origin = new_position
+	
+func _ready():
+	update_camera_zoom()
+
+func _process(delta):
+	if not is_locked:
+		handle_pan(delta)
+		smooth_zoom(delta)
+	else:
+		smooth_lock(delta)
+
+# Handle zooming in and out
+func _unhandled_input(event):
+	if not is_locked and event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:  # Mouse wheel up
+			zoom_level -= zoom_speed
+			zoom_level = clamp(zoom_level, boundaries.position.y, boundaries.size.y)
+			update_camera_zoom()
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:  # Mouse wheel down
+			zoom_level += zoom_speed
+			zoom_level = clamp(zoom_level, boundaries.position.y, boundaries.size.y)
+			update_camera_zoom()

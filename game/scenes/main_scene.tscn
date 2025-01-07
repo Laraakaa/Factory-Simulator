@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://8y7tgxeq5mux"]
+[gd_scene load_steps=10 format=3 uid="uid://8y7tgxeq5mux"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_yo6cb"]
+[ext_resource type="Script" path="res://scripts/menu/run.gd" id="2_de4f2"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="2_k63b4"]
 [ext_resource type="PackedScene" uid="uid://c6qof5uhon078" path="res://scenes/layouts/factory_1.tscn" id="2_mhp7c"]
 [ext_resource type="PackedScene" uid="uid://de654exmses8g" path="res://scenes/robot.tscn" id="4_8abcq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ve1o"]
+font_color = Color(0.505344, 0.505344, 0.505344, 1)
 
 [sub_resource type="Environment" id="Environment_b1tst"]
 
@@ -13,7 +17,12 @@
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_yo6cb")
 
 [node name="HUD" type="Control" parent="."]
@@ -23,26 +32,108 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Menu" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.054902, 0.054902, 0.054902, 0.870588)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
+[node name="Panel" type="Panel" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = -25.0
+offset_bottom = -25.0
+
+[node name="TabContainer" type="TabContainer" parent="Menu/Panel/MarginContainer"]
 layout_mode = 2
+current_tab = 0
 
-[node name="Play" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+[node name="Run" type="Control" parent="Menu/Panel/MarginContainer/TabContainer"]
 layout_mode = 2
-text = "Play
-"
+mouse_filter = 1
+script = ExtResource("2_de4f2")
+metadata/_tab_index = 0
 
-[node name="Quit" type="Button" parent="Menu/MarginContainer/VBoxContainer"]
+[node name="RunVBoxContainer" type="VBoxContainer" parent="Menu/Panel/MarginContainer/TabContainer/Run"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LevelSelectLabel" type="Label" parent="Menu/Panel/MarginContainer/TabContainer/Run/RunVBoxContainer"]
 layout_mode = 2
-text = "Quit"
+text = "Select Level"
+
+[node name="LevelList" type="ItemList" parent="Menu/Panel/MarginContainer/TabContainer/Run/RunVBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+allow_rmb_select = true
+auto_height = true
+item_count = 2
+item_0/text = "Level 1"
+item_1/text = "Level 2"
+
+[node name="RunHBoxContainer" type="HBoxContainer" parent="Menu/Panel/MarginContainer/TabContainer/Run/RunVBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="SelectedLevelName" type="Label" parent="Menu/Panel/MarginContainer/TabContainer/Run/RunVBoxContainer/RunHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dynamic"
+label_settings = SubResource("LabelSettings_1ve1o")
+
+[node name="RobotNumberLabel" type="Label" parent="Menu/Panel/MarginContainer/TabContainer/Run/RunVBoxContainer/RunHBoxContainer"]
+layout_mode = 2
+text = "Number of robots:"
+
+[node name="RobotNumber" type="SpinBox" parent="Menu/Panel/MarginContainer/TabContainer/Run/RunVBoxContainer/RunHBoxContainer"]
+layout_mode = 2
+value = 3.0
+
+[node name="PlayButton" type="Button" parent="Menu/Panel/MarginContainer/TabContainer/Run/RunVBoxContainer/RunHBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Play"
+
+[node name="Configure Behaviours" type="Control" parent="Menu/Panel/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Quit" type="Control" parent="Menu/Panel/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="Main3D" type="Node3D" parent="."]
 
@@ -69,5 +160,22 @@ engine_force = 100.0
 
 [node name="Factory" parent="Main3D" instance=ExtResource("2_mhp7c")]
 
-[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Menu/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="tab_clicked" from="Menu/Panel/MarginContainer/TabContainer" to="." method="_on_tab_clicked"]
+[connection signal="run_level" from="Menu/Panel/MarginContainer/TabContainer/Run" to="." method="_on_run_level"]
+[connection signal="item_activated" from="Menu/Panel/MarginContainer/TabContainer/Run/RunVBoxContainer/LevelList" to="Menu/Panel/MarginContainer/TabContainer/Run" method="_on_level_list_item_activated"]
+[connection signal="pressed" from="Menu/Panel/MarginContainer/TabContainer/Run/RunVBoxContainer/RunHBoxContainer/PlayButton" to="Menu/Panel/MarginContainer/TabContainer/Run" method="_on_play_button_pressed"]

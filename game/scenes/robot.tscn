@@ -8,7 +8,7 @@
 [ext_resource type="ArrayMesh" uid="uid://d2rfpnu3yjwc5" path="res://assets/models/robot_wheel_br.res" id="5_kp51p"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_j0fwy"]
-friction = 0.5
+friction = 0.4
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4f4un"]
 points = PackedVector3Array(-1, -1, -1, -0.568716, -1.69694, -1, -1, -1, 1, -1, 1, -1, -0.568716, -1.69694, 1, 0.56852, -1.69694, -1, -1, 1, 1, 1, 1, -1, 0.56852, -1.69694, 1, 1, -1, -1, 1, 1, 1, 1, -1, 1)
