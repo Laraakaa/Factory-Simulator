@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="RandomRobotBehaviour" load_steps=2 format=3 uid="uid://c8sly50oufe1h"]
+
+[ext_resource type="Script" path="res://scripts/robot/behaviour/random_behaviour.gd" id="1_euisx"]
+
+[resource]
+script = ExtResource("1_euisx")
+max_speed = 10.0
+direction_change_interval = 2.0

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dclheyka5m83j"]
+
+[ext_resource type="PackedScene" uid="uid://jnpolsyg5abx" path="res://assets/models/tiles/robot_oven.glb" id="1_g6623"]
+
+[node name="Oven" type="Node3D"]
+
+[node name="robot_oven" parent="." instance=ExtResource("1_g6623")]
